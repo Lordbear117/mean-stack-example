@@ -1,15 +1,17 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Employee } from './employee';
+import { environment } from '../enviroments/enviroments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  private url = 'http://localhost:5200';
+  //private url = 'http://localhost:5200';
+  private url = environment.apiUrl;
   employees$ = signal<Employee[]>([]);
   employee$ = signal<Employee>({} as Employee);
-  
+
   constructor(private httpClient: HttpClient) { }
 
   private refreshEmployees() {

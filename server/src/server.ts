@@ -19,7 +19,18 @@ if (!ATLAS_URI) {
 connectToDatabase(ATLAS_URI)
   .then(() => {
     const app = express();
-    app.use(cors());
+
+    // app.use(cors());
+
+    // Permitir solicitudes desde cualquier origen, incluyendo la IP pública del frontend
+    const corsOptions = {
+      origin: "*",
+      methods: "GET, POST, PUT, DELETE",
+      allowedHeaders: "Content-Type, Authorization",
+    };
+
+    app.use(cors(corsOptions));  // Configuración de CORS
+    app.use(express.json());
     app.use("/employees", employeeRouter);
 
     // start the Express server
